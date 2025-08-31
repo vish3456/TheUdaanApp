@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Tracker App Workflow</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .card {
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        .workflow-arrow {
+            /* This is a simple right-pointing arrow for visual flow */
+            width: 0; 
+            height: 0; 
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 10px solid #cbd5e1;
+            position: absolute;
+            right: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen p-8 text-gray-800">
+
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <div class="flex items-center justify-center gap-3 mb-4">
+                <!-- Bus Icon SVG -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10 text-blue-600"><path d="M19 17h2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h2m2 0a2 2 0 0 1-2 2H7m2 0a2 2 0 0 0 2 2v0a2 2 0 0 0 2-2m-2-2v0m-2 0a2 2 0 0 0-2-2h-2m-2 0v2a2 2 0 0 0 2 2v0a2 2 0 0 0 2-2m-2-2h-2m2 0v2m-2-2h-2a2 2 0 0 0-2 2v0a2 2 0 0 0 2 2m-2-2h-2m2 0v2"/><path d="M22 17H2a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h20a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2z"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="8" y1="17" x2="8" y2="21"/><line x1="16" y1="17" x2="16" y2="21"/><line x1="8" y1="9" x2="8" y2="12"/><line x1="16" y1="9" x2="16" y2="12"/><line x1="5" y1="17" x2="5" y2="21"/></svg>
+                <h1 class="text-4xl font-bold text-gray-800">The Udaan App</h1>
+            </div>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                User Workflow & Journey Map
+            </p>
+            <div class="flex items-center justify-center gap-4 mt-4">
+                <span class="inline-flex items-center gap-2 rounded-full border bg-gray-100 px-2.5 py-0.5 text-xs font-semibold text-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-950 focus:ring-offset-2 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-50 dark:hover:bg-gray-800/80">
+                    <!-- Monitor Icon SVG -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                    Desktop
+                </span>
+                <span class="inline-flex items-center gap-2 rounded-full border bg-gray-100 px-2.5 py-0.5 text-xs font-semibold text-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-950 focus:ring-offset-2 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-50 dark:hover:bg-gray-800/80">
+                    <!-- Smartphone Icon SVG -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                    Mobile
+                </span>
+            </div>
+        </div>
+
+
+        <!-- Main App Interface -->
+        <div class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Main App Interface</h2>
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Search Panel -->
+                <div class="bg-orange-50 border-orange-200 card rounded-lg border">
+                    <div class="p-6">
+                        <h3 class="font-semibold flex items-center gap-2">
+                            <!-- Search Icon SVG -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-orange-600"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            Search Panel
+                        </h3>
+                    </div>
+                    <div class="p-6 pt-0 space-y-4">
+                        <div class="p-3 bg-white rounded-lg border">
+                            <p class="font-medium mb-2">Search Features:</p>
+                            <ul class="text-sm space-y-1 list-disc list-inside">
+                                <li>Find bus routes</li>
+                                <li>Locate nearby stops</li>
+                                <li>View route schedules</li>
+                                <li>Access favorite routes</li>
+                            </ul>
+                        </div>
+                        <div class="p-3 bg-orange-100 rounded-lg">
+                            <p class="text-sm font-medium">Default active panel</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Map -->
+                <div class="bg-green-50 border-green-200 card rounded-lg border">
+                    <div class="p-6">
+                        <h3 class="font-semibold flex items-center gap-2">
+                            <!-- MapPin Icon SVG -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-green-600"><path d="M12 18s-4-4-4-7a4 4 0 0 1 8 0c0 3-4 7-4 7zm0 0v3m0-11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+                            Interactive Map
+                        </h3>
+                    </div>
+                    <div class="p-6 pt-0 space-y-4">
+                        <div class="p-3 bg-white rounded-lg border">
+                            <p class="font-medium mb-2">Map Features:</p>
+                            <ul class="text-sm space-y-1 list-disc list-inside">
+                                <li>Real-time bus locations</li>
+                                <li>Bus stop markers</li>
+                                <li>User location tracking</li>
+                                <li>Route visualization</li>
+                            </ul>
+                        </div>
+                        <div class="p-3 bg-green-100 rounded-lg">
+                            <p class="text-sm font-medium">Central navigation hub</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detail Panels -->
+                <div class="bg-purple-50 border-purple-200 card rounded-lg border">
+                    <div class="p-6">
+                        <h3 class="font-semibold flex items-center gap-2">
+                            <!-- Eye Icon SVG -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-purple-600"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+                            Detail Panels
+                        </h3>
+                    </div>
+                    <div class="p-6 pt-0 space-y-4">
+                        <div class="p-3 bg-white rounded-lg border">
+                            <p class="font-medium mb-2">Dynamic Content:</p>
+                            <ul class="text-sm space-y-1 list-disc list-inside">
+                                <li>Bus details & occupancy</li>
+                                <li>Stop info & arrivals</li>
+                                <li>Route schedules</li>
+                                <li>Real-time predictions</li>
+                            </ul>
+                        </div>
+                        <div class="p-3 bg-purple-100 rounded-lg">
+                            <p class="text-sm font-medium">Context-sensitive display</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Journey Flows -->
+        <div class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Common User Journeys</h2>
+            
+            <!-- Journey 1: Finding a Bus -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold mb-6 text-gray-700 flex items-center gap-2">
+                    <!-- Bus Icon SVG -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-blue-600"><path d="M19 17h2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h2m2 0a2 2 0 0 1-2 2H7m2 0a2 2 0 0 0 2 2v0a2 2 0 0 0 2-2m-2-2v0m-2 0a2 2 0 0 0-2-2h-2m-2 0v2a2 2 0 0 0 2 2v0a2 2 0 0 0 2-2m-2-2h-2m2 0v2m-2-2h-2a2 2 0 0 0-2 2v0a2 2 0 0 0 2 2m-2-2h-2m2 0v2"/><path d="M22 17H2a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h20a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2z"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="8" y1="17" x2="8" y2="21"/><line x1="16" y1="17" x2="16" y2="21"/><line x1="8" y1="9" x2="8" y2="12"/><line x1="16" y1="9" x2="16" y2="12"/><line x1="5" y1="17" x2="5" y2="21"/></svg>
+                    Journey 1: Finding & Tracking a Bus
+                </h3>
+                <div class="grid md:grid-cols-5 gap-4">
+                    <!-- Step 1 -->
+                    <div class="card rounded-lg relative">
+                        <div class="p-4 text-center">
+                            <div class="w-12 h-12 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center mx-auto mb-3">
+                                <!-- Search Icon SVG -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            </div>
+                            <h4 class="font-semibold mb-2">Search Route</h4>
+                            <p class="text-sm text-gray-600">User searches for specific bus route</p>
+                        </div>
+                        <div class="workflow-arrow hidden md:block"></div>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="card rounded-lg relative">
+                        <div class="p-4 text-center">
+                            <div class="w-12 h-12 rounded-full bg-green-100 text-green-700 flex items-center justify-center mx-auto mb-3">
+                                <!-- Route Icon SVG -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><circle cx="12" cy="18" r="3"/><path d="M10.2 15.3L5 6m4.8 5.7L19 3m-4.8 5.7L19 3m-4.8 5.7L19 3M5 6l5.2 9.3m-4.8-5.7L19 3m-4.8 5.7L19 3m-4.8 5.7L19 3M19 3L14.2 8.7M14.2 8.7L19 3"/><line x1="12" y1="6" x2="12" y2="15"/><path d="M12 15s-2 1-2 3c0 1.5 2 3 2 3s2-1.5 2-3c0-2-2-3-2-3z"/><path d="M12 12L5 6m14-3L5 6m14-3l-7 9m-7-9l7 9"/></svg>
+                            </div>
+                            <h4 class="font-semibold mb-2">Select Route</h4>
+                            <p class="text-sm text-gray-600">Choose from search results</p>
+                        </div>
+                        <div class="workflow-arrow hidden md:block"></div>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="card rounded-lg relative">
+                        <div class="p-4 text-center">
+                            <div class="w-12 h-12 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center mx-auto mb-3">
+                                <!-- MapPin Icon SVG -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M12 18s-4-4-4-7a4 4 0 0 1 8 0c0 3-4 7-4 7zm0 0v3m0-11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+                            </div>
+                            <h4 class="font-semibold mb-2">View on Map</h4>
+                            <p class="text-sm text-gray-600">See buses on route in real-time</p>
+                        </div>
+                        <div class="workflow-arrow hidden md:block"></div>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="card rounded-lg relative">
+                        <div class="p-4 text-center">
+                            <div class="w-12 h-12 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center mx-auto mb-3">
+                                <!-- Bus Icon SVG -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M19 17h2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h2m2 0a2 2 0 0 1-2 2H7m2 0a2 2 0 0 0 2 2v0a2 2 0 0 0 2-2m-2-2v0m-2 0a2 2 0 0 0-2-2h-2m-2 0v2a2 2 0 0 0 2 2v0a2 2 0 0 0 2-2m-2-2h-2m2 0v2m-2-2h-2a2 2 0 0 0-2 2v0a2 2 0 0 0 2 2m-2-2h-2m2 0v2"/><path d="M22 17H2a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h20a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2z"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="8" y1="17" x2="8" y2="21"/><line x1="16" y1="17" x2="16" y2="21"/><line x1="8" y1="9" x2="8" y2="12"/><line x1="16" y1="9" x2="16" y2="12"/><line x1="5" y1="17" x2="5" y2="21"/></svg>
+                            </div>
+                            <h4 class="font-semibold mb-2">Select Bus</h4>
+                            <p class="text-sm text-gray-600">Click on specific bus marker</p>
+                        </div>
+                        <div class="workflow-arrow hidden md:block"></div>
+                    </div>
+                    <!-- Step 5 -->
+                    <div class="card rounded-lg relative">
+                        <div class="p-4 text-center">
+                            <div class="w-12 h-12 rounded-full bg-red-100 text-red-700 flex items-center justify-center mx-auto mb-3">
+                                <!-- Eye Icon SVG -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+                            </div>
+                            <h4 class="font-semibold mb-2">View Details</h4>
+                            <p class="text-sm text-gray-600">See bus info, occupancy, ETA</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Journey 2: Finding Nearby Stops -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold mb-6 text-gray-700 flex items-center gap-2">
+                    <!-- MapPin Icon SVG -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-green-600"><path d="M12 18s-4-4-4-7a4 4 0 0 1 8 0c0 3-4 7-4 7zm0 0v3m0-11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+                    Journey 2: Finding Nearby Stops
+                </h3>
+                <div class="grid md:grid-cols-5 gap-4">
+                    <!-- Step 1 -->
+                    <div class="card rounded-lg relative">
+                        <div class="p-4 text-center">
+                            <div class="w-12 h-12 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center mx-auto mb-3">
+                                <!-- Navigation Icon SVG -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+                            </div>
+                            <h4 class="font-semibold mb-2">Get Location</h4>
+                            <p class="text-sm text-gray-600">App requests user location</p>
+                        </div>
+                        <div class="workflow-arrow hidden md:block"></div>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="card rounded-lg relative">
+                        <div class="p-4 text-center">
+                            <div class="w-12 h-12 rounded-full bg-green-100 text-green-700 flex items-center justify-center mx-auto mb-3">
+                                <!-- Search Icon SVG -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            </div>
+                            <h4 class="font-semibold mb-2">Search Nearby</h4>
+                            <p class="text-sm text-gray-600">Find stops within radius</p>
+                        </div>
+                        <div class="workflow-arrow hidden md:block"></div>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="card rounded-lg relative">
+                        <div class="p-4 text-center">
+                            <div class="w-12 h-12 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center mx-auto mb-3">
+                                <!-- MapPin Icon SVG -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M12 18s-4-4-4-7a4 4 0 0 1 8 0c0 3-4 7-4 7zm0 0v3m0-11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+                            </div>
+                            <h4 class="font-semibold mb-2">View Stops</h4>
+                            <p class="text-sm text-gray-600">See stop markers on map</p>
+                        </div>
+                        <div class="workflow-arrow hidden md:block"></div>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="card rounded-lg relative">
+                        <div class="p-4 text-center">
+                            <div class="w-12 h-12 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center mx-auto mb-3">
+                                <!-- Eye Icon SVG -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+                            </div>
+                            <h4 class="font-semibold mb-2">Stop Details</h4>
+                            <p class="text-sm text-gray-600">Click stop for arrival times</p>
+                        </div>
+                        <div class="workflow-arrow hidden md:block"></div>
+                    </div>
+                    <!-- Step 5 -->
+                    <div class="card rounded-lg relative">
+                        <div class="p-4 text-center">
+                            <div class="w-12 h-12 rounded-full bg-red-100 text-red-700 flex items-center justify-center mx-auto mb-3">
+                                <!-- Heart Icon SVG -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0L12 5.31l-.77-.73a5.4 5.4 0 0 0-7.65 0c-2.34 2.34-2.34 6.14 0 8.49l7.65 7.65.77.73.77-.73 7.65-7.65c2.34-2.35 2.34-6.15 0-8.5z"/></svg>
+                            </div>
+                            <h4 class="font-semibold mb-2">Save Favorite</h4>
+                            <p class="text-sm text-gray-600">Add to favorites for quick access</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feature Matrix -->
+        <div class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Feature Interaction Matrix</h2>
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Core Features -->
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 card rounded-lg">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold flex items-center gap-2">
+                            <!-- Settings Icon SVG -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-blue-600"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.22a2 2 0 0 1-1.4 1.4L4.99 7.7a2 2 0 0 0-1.2 2.7l.45.89a2 2 0 0 1 1.4 1.4l.22.44a2 2 0 0 0 2 2h.44a2 2 0 0 1 2 2v.22a2 2 0 0 0 1.4 1.4l.89.45a2 2 0 0 0 2.7-1.2l.44-.22a2 2 0 0 1 1.4-1.4l.22-.44a2 2 0 0 0 2-2v-.44a2 2 0 0 1 1.4-1.4l.89-.45a2 2 0 0 0 1.2-2.7l-.45-.89a2 2 0 0 1-1.4-1.4l-.22-.44a2 2 0 0 0-2-2h-.44a2 2 0 0 1-2-2V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                            Core Features
+                        </h3>
+                    </div>
+                    <div class="p-6 pt-0 space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <!-- Real-time Updates -->
+                            <div class="p-3 bg-white rounded-lg border">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <!-- Clock Icon SVG -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-green-600"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                    <span class="font-medium">Real-time Updates</span>
+                                </div>
+                                <p class="text-sm text-gray-600">Live bus locations & ETAs</p>
+                            </div>
+                            <!-- Favorites System -->
+                            <div class="p-3 bg-white rounded-lg border">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <!-- Star Icon SVG -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-yellow-600"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                    <span class="font-medium">Favorites System</span>
+                                </div>
+                                <p class="text-sm text-gray-600">Save frequently used routes</p>
+                            </div>
+                            <!-- Geolocation -->
+                            <div class="p-3 bg-white rounded-lg border">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <!-- Navigation Icon SVG -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-blue-600"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+                                    <span class="font-medium">Geolocation</span>
+                                </div>
+                                <p class="text-sm text-gray-600">Find nearby stops & routes</p>
+                            </div>
+                            <!-- User Accounts -->
+                            <div class="p-3 bg-white rounded-lg border">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <!-- User Icon SVG -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-purple-600"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                                    <span class="font-medium">User Accounts</span>
+                                </div>
+                                <p class="text-sm text-gray-600">Personalized experience</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Device Adaptations -->
+                <div class="bg-gradient-to-br from-green-50 to-green-100 card rounded-lg">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold flex items-center gap-2">
+                            <!-- Smartphone Icon SVG -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-green-600"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                            Device Adaptations
+                        </h3>
+                    </div>
+                    <div class="p-6 pt-0 space-y-4">
+                        <div class="space-y-4">
+                            <!-- Desktop Experience -->
+                            <div class="p-4 bg-white rounded-lg border">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <!-- Monitor Icon SVG -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-blue-600"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                                    <span class="font-semibold">Desktop Experience</span>
+                                </div>
+                                <ul class="text-sm text-gray-600 space-y-1 list-disc list-inside">
+                                    <li>Resizable side panels</li>
+                                    <li>Full-screen map view</li>
+                                    <li>Detailed information display</li>
+                                    <li>Multi-panel navigation</li>
+                                </ul>
+                            </div>
+                            <!-- Mobile Experience -->
+                            <div class="p-4 bg-white rounded-lg border">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <!-- Smartphone Icon SVG -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-green-600"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                                    <span class="font-semibold">Mobile Experience</span>
+                                </div>
+                                <ul class="text-sm text-gray-600 space-y-1 list-disc list-inside">
+                                    <li>Drawer-based navigation</li>
+                                    <li>Touch-optimized interface</li>
+                                    <li>Compact header design</li>
+                                    <li>Swipe gestures support</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Error Handling & Edge Cases -->
+        <div class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Error Handling & Edge Cases</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Network Issues -->
+                <div class="bg-red-50 border-red-200 card rounded-lg border">
+                    <div class="p-6">
+                        <h3 class="text-lg font-semibold text-red-700">Network Issues</h3>
+                    </div>
+                    <div class="p-6 pt-0 text-sm space-y-2">
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>Offline mode with cached data</li>
+                            <li>Retry mechanisms for failed requests</li>
+                            <li>User-friendly error messages</li>
+                            <li>Graceful degradation</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Location Services -->
+                <div class="bg-yellow-50 border-yellow-200 card rounded-lg border">
+                    <div class="p-6">
+                        <h3 class="text-lg font-semibold text-yellow-700">Location Services</h3>
+                    </div>
+                    <div class="p-6 pt-0 text-sm space-y-2">
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>Permission request handling</li>
+                            <li>Manual location entry option</li>
+                            <li>Location accuracy warnings</li>
+                            <li>Privacy considerations</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Data Loading -->
+                <div class="bg-blue-50 border-blue-200 card rounded-lg border">
+                    <div class="p-6">
+                        <h3 class="text-lg font-semibold text-blue-700">Data Loading</h3>
+                    </div>
+                    <div class="p-6 pt-0 text-sm space-y-2">
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>Loading states & skeletons</li>
+                            <li>Empty state handling</li>
+                            <li>Refresh mechanisms</li>
+                            <li>Performance optimization</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
